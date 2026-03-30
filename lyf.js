@@ -10,11 +10,11 @@
 // ─────────────────────────────────────────────────────────────
 var LYF_FIELDS = {
   email:   'email',   // Ontraport email field name
-  q1:      'f1752',   // LYF - What brings joy (Q1)
-  q2:      'f1753',   // LYF - Project on mind (Q2)
-  q3:      'f1754',   // LYF - What's weighing you down
-  choice:  'f1755',   // LYF - Choice selected
-  onestep: 'f1756'    // LYF - One step given
+  q1:      'f2301',   // LYF - What brings joy (Q1)
+  q2:      'f2302',   // LYF - Project on mind (Q2)
+  q3:      'f2303',   // LYF - What's weighing you down
+  choice:  'f2304',   // LYF - Choice selected
+  onestep: 'f2305'    // LYF - One step given
 };
 
 // Must match what you append to the opt-in redirect: ?email=%%Email%%
