@@ -26,31 +26,31 @@ var LYF_EMAIL_PARAM = 'email';
 var LYF_STEPS = {
   photos: {
     title: 'Set a 10-minute timer and find five photos.',
-    body: 'Just five. From one moment — a trip, a birthday, an ordinary Tuesday you somehow remember. Don\'t sort the whole library, don\'t make any decisions. Just find them, look at them for a minute, and let yourself feel why they matter. That\'s your step.'
+    body: 'Just five. From one moment: a trip, a birthday, an ordinary Tuesday you somehow remember. Don\'t sort the whole library, don\'t make any decisions. Just find them, look at them for a minute, and let yourself feel why they matter. That\'s your step.'
   },
   supplies: {
     title: 'Find one thing you\'ve been meaning to use and put it on your table.',
-    body: 'Not to make something with it today — just to get it out of the drawer or bin and somewhere you can see it. A patterned paper. A stamp you bought six months ago. A kit still in the bag. Put it out. Let it remind you that you picked it because something about it felt right.'
+    body: 'Not to make something with it today. Just get it out of the drawer or bin and somewhere you can see it. A patterned paper. A stamp you bought six months ago. A kit still in the bag. Put it out. Let it remind you that you picked it because something about it felt right.'
   },
   finish: {
     title: 'Find the project and put it where you can see it.',
-    body: 'You know the one. Pull it out — from the shelf, the drawer, the pile — and set it somewhere visible. You don\'t have to work on it right now. Just making it visible is enough for today.'
+    body: 'You know the one. Pull it out (from the shelf, the drawer, the pile) and set it somewhere visible. You don\'t have to work on it right now. Just making it visible is enough for today.'
   },
   space: {
     title: 'Spend 10 minutes on just one corner.',
-    body: 'Not the whole room. Pick one small area that\'s been bothering you — a shelf, a drawer, the spot where things pile up — and spend 10 minutes making it feel a little more intentional. One corner. You\'ll feel it.'
+    body: 'Not the whole room. Pick one small area that\'s been bothering you (a shelf, a drawer, the spot where things pile up) and spend 10 minutes making it feel a little more intentional. One corner. You\'ll feel it.'
   },
   plan: {
     title: 'Write down one project, one reason it matters, and one small next action.',
-    body: 'On a sticky note, an index card, the notes app on your phone — write the name of one project, one sentence about why it matters to you, and the smallest possible next step. Put it somewhere you\'ll see it. That\'s your whole plan.'
+    body: 'On a sticky note, an index card, the notes app on your phone: write the name of one project, one sentence about why it matters to you, and the smallest possible next step. Put it somewhere you\'ll see it. That\'s your whole plan.'
   },
   oldpages: {
     title: 'Pull out one album or layout you\'ve already made and spend five minutes with it.',
-    body: 'Not to critique it — just to look at it. Read the journaling. Notice what you captured that would have been lost otherwise. Let yourself feel proud of something you\'ve already done. You\'ve been making things that matter. It helps to remember that.'
+    body: 'Not to critique it. Just look at it. Read the journaling. Notice what you captured that would have been lost otherwise. Let yourself feel proud of something you\'ve already done. You\'ve been making things that matter. It helps to remember that.'
   },
   def: {
     title: 'Set aside 10 minutes just for yourself today.',
-    body: 'Open your craft space, even if you just stand in it for a minute. Touch the supplies you love. Remember why you started. Sometimes that\'s the whole step — just showing up, even briefly, and letting yourself feel reconnected to this part of your life.'
+    body: 'Visit your craft space, even if you just stand in it for a minute. Touch the supplies you love. Remember why you started. Sometimes that\'s the whole step: just showing up, even briefly, and letting yourself feel reconnected to this part of your life.'
   }
 };
 
@@ -66,7 +66,7 @@ var LYF_LABELS = {
 // ─────────────────────────────────────────────────────────────
 // State
 // ─────────────────────────────────────────────────────────────
-var LYF_IDS = ['lyf-welcome','lyf-notice','lyf-release','lyf-follow','lyf-onestep','lyf-final'];
+var LYF_IDS = ['lyf-welcome','lyf-notice','lyf-release','lyf-follow','lyf-onestep'];
 var lyfIdx = 0;
 var lyfChoice = null;
 var lyfEmail = '';
@@ -127,12 +127,13 @@ function lyfGoToOneStep() {
 
 // ─────────────────────────────────────────────────────────────
 // Submit — populate Ontraport hidden fields, trigger native submit
+// Ontraport's form redirect takes the person to the thank-you page
 // ─────────────────────────────────────────────────────────────
 function lyfSubmit() {
   var wrapper = document.getElementById('lyf-op-form-wrapper');
-  if (!wrapper) { lyfGoTo('lyf-final'); return; }
+  if (!wrapper) return;
   var form = wrapper.querySelector('form');
-  if (!form) { lyfGoTo('lyf-final'); return; }
+  if (!form) return;
 
   var key = lyfChoice || 'def';
   var d = LYF_STEPS[key] || LYF_STEPS.def;
@@ -152,8 +153,6 @@ function lyfSubmit() {
   } else {
     form.submit();
   }
-
-  lyfGoTo('lyf-final');
 }
 
 function lyfSetField(form, name, value) {
