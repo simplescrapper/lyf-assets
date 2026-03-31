@@ -135,6 +135,16 @@ function lyfSubmit() {
   var form = wrapper.querySelector('form');
   if (!form) return;
 
+  // Lock the current step in place so it stays visible
+  // behind Ontraport's processing overlay during redirect
+  var card = document.querySelector('.lyf-card');
+  if (card) card.style.visibility = 'visible';
+  var activeStep = document.getElementById('lyf-onestep');
+  if (activeStep) {
+    activeStep.style.display = 'block';
+    activeStep.style.opacity = '1';
+  }
+
   var key = lyfChoice || 'def';
   var d = LYF_STEPS[key] || LYF_STEPS.def;
   var choiceLabel = LYF_LABELS[key] || 'Not selected';
@@ -167,3 +177,35 @@ function lyfSetField(form, name, value) {
     form.appendChild(inp);
   }
 }
+
+// ─────────────────────────────────────────────────────────────
+// fire-next page: wire up SPARKED button
+// Mirrors activity page pattern — populates hidden smart form
+// and triggers its submit button
+// ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('lyf-sparked-btn');
+  if (!btn) return; // not on fire-next page, exit
+
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    var wrapper = document.getElementById('lyf-sparked-form-wrapper');
+    if (!wrapper) { window.location.href = 'https://www.simplescrapper.com/sparked-ty'; return; }
+
+    var form = wrapper.querySelector('form');
+    if (!form) { window.location.href = 'https://www.simplescrapper.com/sparked-ty'; return; }
+
+    // Populate email from URL param
+    var email = new URLSearchParams(window.location.search).get('email') || '';
+    lyfSetField(form, 'email', email);
+
+    // Trigger Ontraport's native submit
+    var submitBtn = form.querySelector('[name="submit-button"]');
+    if (submitBtn) {
+      submitBtn.click();
+    } else {
+      form.submit();
+    }
+  });
+});
