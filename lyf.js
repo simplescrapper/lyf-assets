@@ -191,10 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
 
     var wrapper = document.getElementById('lyf-sparked-form-wrapper');
-    if (!wrapper) { window.location.href = 'https://www.simplescrapper.com/sparked-ty'; return; }
+    if (!wrapper) { window.location.href = 'https://start.simplescrapper.com/fire-watch'; return; }
 
     var form = wrapper.querySelector('form');
-    if (!form) { window.location.href = 'https://www.simplescrapper.com/sparked-ty'; return; }
+    if (!form) { window.location.href = 'https://start.simplescrapper.com/fire-watch'; return; }
 
     // Populate email from URL param
     var email = new URLSearchParams(window.location.search).get('email') || '';
